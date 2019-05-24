@@ -1,4 +1,4 @@
-const int sampleWindow = 5;                              // Sample window width in mS (50 mS = 20Hz)
+const uint8_t sampleWindow = 5;                              // Sample window width in mS (50 mS = 20Hz)
 unsigned int sample;
 unsigned int sample2;
 unsigned int sample3;
@@ -108,3 +108,4 @@ void microphone()
       }
    }
 }
+

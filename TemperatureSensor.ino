@@ -1,7 +1,4 @@
-#define OLED_RESET 4  
-
 const unsigned char One_Wire_Bus = 8;
-int countSensor = 0;
 
 OneWire oneWire(One_Wire_Bus);
 DallasTemperature sensoren(&oneWire);
@@ -10,13 +7,14 @@ void setupTemperature()
 { 
   sensoren.begin(); 
 
-  countSensor = sensoren.getDeviceCount();
-
-  pinMode (2, OUTPUT);
-  pinMode (3, OUTPUT);
+  uint8_t countSensor = sensoren.getDeviceCount();
+  
   pinMode (4, OUTPUT);
 
-  Serial.println("Temperature sensor connected.");
+  if(countSensor > 0)
+  {
+    Serial.println("Temperature sensor connected.");
+  }
 }
 
 void temperature()
@@ -40,6 +38,3 @@ void displayTemperature(float temperature)
   display.setCursor(30,0);
   display.println("C"); 
 }
-
-
-

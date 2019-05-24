@@ -1,3 +1,5 @@
+#define OLED_RESET 4
+
 void setupDisplay()
 {
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
