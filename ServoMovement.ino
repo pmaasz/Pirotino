@@ -1,3 +1,12 @@
+void servosSetup()
+{
+   // Analog servos run at ~60 Hz updates
+  pwm.begin();
+  pwm.setPWMFreq(60);
+  
+  Serial.println("pwm1 connected and initialised.");
+}
+
 void moveForward()
 {
   Serial.println(servonum);
@@ -7,14 +16,14 @@ void moveForward()
     pwm.setPWM(servonum, 0, pulselen);
   }
 
-  delay(1000);
+  delay(500);
 
   for (uint16_t pulselen = SERVOMAX; pulselen > SERVOMIN; pulselen--)
   {
     pwm.setPWM(servonum, 0, pulselen);
   }
 
-  delay(1000);
+  delay(500);
    
   servonum++;
   
@@ -24,6 +33,18 @@ void moveForward()
   }
 }
 
+void moveBackward()
+{
+  
+}
 
- 
+void turnRight()
+{
+  
+}
+
+void turnLeft()
+{
+   
+}
 

@@ -4,7 +4,13 @@ unsigned int sample2;
 unsigned int sample3;
 unsigned int sample4;
 
-void mic(){
+void microphoneSetup()
+{
+  Serial.println("Microphones connected"); 
+}
+
+void microphone()
+{
    unsigned long startMillis= millis();                   // Start of sample window                                 
    unsigned int signalMax1 = 0;                            //minimum value
    unsigned int signalMin1 = 1024;                         //maximum value
@@ -12,14 +18,13 @@ void mic(){
    unsigned int signalMin2 = 1024;
                                                           
    while (millis() - startMillis < sampleWindow)
-   {        // collect data for 50 mS
-      sample = analogRead(0);                             //get reading from microphone
+   {
+      sample = analogRead(0);                            
       sample2 = analogRead(1);
       sample3 = analogRead(2);
       sample4 = analogRead(3);
 
       //left-right
-    
       if (sample < 1024)
       {                                // toss out spurious readings 
          if (sample > signalMax1)
@@ -44,8 +49,7 @@ void mic(){
          }
       }
 
-      //up-down
-      
+      //up-down    
       if (sample3 < 1024) {                                // toss out spurious readings 
          if (sample3 > signalMax2)
          {
@@ -69,39 +73,38 @@ void mic(){
       }      
    }
   
-   
    int peakToPeak1 = signalMax1 - signalMin1;               // max - min = peak-to-peak amplitude
    int peakToPeak2 = signalMax2 - signalMin2;
 
-     if(peakToPeak1 > 50)
-     {
-        if(sample > sample2)
-        {                            //left-right
-            x=x+5;
-        } 
-        if(sample2 > sample)
-        {
-            x=x-5;
-        }
-     }
-     
-     if(x > 88)
-     {                                         //x Grenze
+   if(peakToPeak1 > 50)
+   {
+      if(sample > sample2)
+      {                            //left-right
+          x=x+5;
+      } 
+      if(sample2 > sample)
+      {
+          x=x-5;
+      }
+   }
+   
+   if(x > 88){                                         //x Grenze
       x = 88;
-     }
-     if(x < 0) {
-      x = 0;
-     }
+   }
+   
+   if(x < 0){
+    x = 0;
+   }
 
    if(peakToPeak2 > 50)
    {
-        if(sample3 > sample4)
-        {                            //up-down
-            y=y+5;
-        } 
-        if(sample4 > sample3)
-        {
-            y=y-5;
-        }
-     }
-  }
+      if(sample3 > sample4)
+      {                            //up-down
+          y=y+5;
+      } 
+      if(sample4 > sample3)
+      {
+          y=y-5;
+      }
+   }
+}
