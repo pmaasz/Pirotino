@@ -4,7 +4,15 @@ void servosSetup()
   pwm.begin();
   pwm.setPWMFreq(60);
   
-  Serial.println("pwm1 connected and initialised.");
+  Serial.println("pwm1 connected.");
+
+  for(int i = 0; i <= 7; i++)
+  {
+    for (uint16_t pulselen = SERVOMIN; pulselen < SERVOMAX; pulselen++)
+    {
+      pwm.setPWM(i, 0, pulselen);
+    }
+  }
 }
 
 void moveForward()
