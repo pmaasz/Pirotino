@@ -9,8 +9,6 @@
 // called this way, it uses the default address 0x40
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 //Adafruit_PWMServoDriver pwm2 = Adafruit_PWMServoDriver(0x41);
-
-
 //Create instance of OLED called display
 Adafruit_SSD1306 display = Adafruit_SSD1306();
 //create an instance of the Time of Flight Sensor
@@ -24,7 +22,7 @@ void setup()
   setupDisplay();
   setupTemperature();
   liDarSetup();  
-  //microphoneSetup();
+  microphoneSetup();
   servosSetup();
 
   Serial.println("Setup complete.");

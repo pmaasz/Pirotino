@@ -11,8 +11,7 @@ void setupTemperature()
   
   pinMode (4, OUTPUT);
 
-  if(countSensor > 0)
-  {
+  if(countSensor > 0){
     Serial.println("Temperature sensor connected.");
   }
 }

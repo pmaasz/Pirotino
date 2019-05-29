@@ -12,7 +12,6 @@ void liDarSetup()
 void liDar()
 {
   VL53L0X_RangingMeasurementData_t measure;
-
   tof.rangingTest(&measure, false);
  
   if(measure.RangeStatus != 4){
