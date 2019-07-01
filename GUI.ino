@@ -1,17 +1,18 @@
-int x = 40;
-int y = 13; 
-int width = 25;
-int height = 10;
+
+uint8_t x = 40;
+uint8_t y = 13; 
+uint8_t width = 25;
+uint8_t height = 10;
+uint8_t eyeDistance = 30;
+uint8_t radius = 2;
 
 void eyes()
-{
-  //microphone();    
+{   
   drawEyes();          
 }
 
 void drawEyes()
 {
-  display.fillRoundRect((int)x, (int)y, width, height, 2, WHITE);
-  display.fillRoundRect((int)x + 30, (int)y, width, height, 2, WHITE); 
+  display.fillRoundRect((int)x, (int)y, width, height, radius, WHITE);
+  display.fillRoundRect((int)x + eyeDistance, (int)y, width, height, radius, WHITE); 
 }
-

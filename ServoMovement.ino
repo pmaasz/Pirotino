@@ -16,8 +16,14 @@
 #define SERVOMAX  600 // this is the 'maximum' pulse length count (out of 4096)
 
 // our servo # counter
-uint8_t servonumber = 0;
-uint8_t switcher = 1;
+//uint8_t servonumber = 0;
+/*
+int pinMatrix[4][1];
+pinMatrix[0][0] = 5;
+pinMatrix[1][0] = 6;
+pinMatrix[2][0] = 7;
+pinMatrix[3][0] = 8;
+*/
 
 void servosSetup()
 {
@@ -27,7 +33,7 @@ void servosSetup()
   
   Serial.println("pwm1 connected.");
 
-  for(uint8_t i = 0; i <= 7; i++){
+  for(uint8_t i = 0; i < 8; i++){
     for (uint16_t pulselen = SERVOMIN; pulselen < SERVOMAX; pulselen++){
       pwm.setPWM(i, 0, pulselen);
     }
@@ -36,77 +42,25 @@ void servosSetup()
 
 void moveForward()
 {
-  servoFeedback(servonumber);
-
-  if(switcher == 1){
-    servoMinToMax(servonumber);
-  }
-  
-  if(switcher == 0){
-    servoMaxToMin(servonumber);
-  }
-  
-  delay(100);
-   
-  servonumber++;
-  
-  checkServoNumber(servonumber);
-}
-
-void moveBackward()
-{
-  
-}
-
-void turnRight()
-{
-  
-}
-
-void turnLeft()
-{
-   
-}
-
-void checkServoNumber(servonumber)
-{
-  if (servonumber > 7){
-    servonumber = 0;
-
-    setSwitcher();
+  for(uint8_t i = 0; i < 5; i++)
+  {
+      servoMinToMax(i + 4);
+      servoMinToMax(i);      
+      servoMaxToMin(i + 4);
+      servoMaxToMin(i);
   }
 }
 
-void setSwitcher()
-{
-  if(switcher == 1){
-    switcher == 0;
-  }
-
-  if(switcher == 0){
-    switcher == 1;
-  }
-}
-
-void servoMinToMax(servonumber)
+void servoMinToMax(uint8_t pin)
 {
   for (uint16_t pulselen = SERVOMIN; pulselen < SERVOMAX; pulselen++){
-    pwm.setPWM(servonum, 0, pulselen);
+    pwm.setPWM(pin, 0, pulselen);
   } 
 }
 
-void servoMaxToMin(servonumber)
+void servoMaxToMin(uint8_t pin)
 {
   for (uint16_t pulselen = SERVOMAX; pulselen > SERVOMIN; pulselen--){
-    pwm.setPWM(servonumber, 0, pulselen);
+    pwm.setPWM(pin, 0, pulselen);
   }
 }
-
-void servoFeedback()
-{
-  Serial.print("Servonumber: ");
-  Serial.println(servonumber);
-  Serial.print("State: ");
-  Serial.println(switcher);
-}
-

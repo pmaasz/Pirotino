@@ -1,4 +1,4 @@
-int range;
+uint16_t range;
 
 void liDarSetup()
 {
