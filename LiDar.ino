@@ -1,21 +1,27 @@
+uint16_t range;
+
+void liDarSetup()
+{
+  if (!tof.begin()){
+    Serial.println("Failed to boot VL53L0X");
+  }
+
+  Serial.println("VL53L0X booted. Lidar ready!");
+}
+
 void liDar()
 {
   VL53L0X_RangingMeasurementData_t measure;
-
-  lox.rangingTest(&measure, false); // pass in 'true' to get debug data printout!
-
-  if (measure.RangeStatus != 4) {  // phase failures have incorrect data
-      display.clearDisplay();
-      display.setCursor(10,0);
-      display.print("Distance: ");
-      display.print(measure.RangeMilliMeter);
-      display.print("mm");
-      display.display();
-      Serial.println();
-      delay(100);
-  } else {
-    display.display();
-    display.clearDisplay();
-    return;
+  tof.rangingTest(&measure, false);
+ 
+  if(measure.RangeStatus != 4){
+    display.setCursor(85,0);
+    range = measure.RangeMilliMeter;
+    display.print(range);
+    display.print("mm");
+  } else{
+    display.setCursor(85,0);
+    display.print(range);
+    display.print("mm");
   }
 }
